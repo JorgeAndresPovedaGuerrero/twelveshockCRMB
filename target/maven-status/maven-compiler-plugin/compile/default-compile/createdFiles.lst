@@ -1,0 +1,16 @@
+com\twelveshock\dao\impl\TransaccionDAO.class
+com\twelveshock\utils\interceptors\BasicAuthFilter.class
+com\twelveshock\utils\mappers\WooCommerceMapper.class
+com\twelveshock\dao\entity\LineItem.class
+com\twelveshock\dao\impl\OrdersDAO$1.class
+com\twelveshock\dto\OrderDTO.class
+com\twelveshock\service\impl\WooCommerceServiceImpl.class
+com\twelveshock\dao\contract\ITransaccionDAO.class
+com\twelveshock\dao\entity\OrderEntity.class
+com\twelveshock\facade\WoocommerceClient.class
+com\twelveshock\service\contract\IWooCommerceService.class
+com\twelveshock\dao\impl\OrdersDAO.class
+com\twelveshock\dao\entity\Billing.class
+com\twelveshock\controller\WoocommerceResource.class
+com\twelveshock\dao\contract\IOrdersDAO.class
+com\twelveshock\dao\entity\Shipping.class
