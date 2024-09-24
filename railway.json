@@ -1,5 +1,8 @@
 {
   "build": {
-    "dockerfile": "Dockerfile.jvm"
+    "dockerfile": "Dockerfile"
+  },
+  "deploy": {
+    "port": 8080
   }
 }
