@@ -152,7 +152,8 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>com.twelveshock.MainClass</mainClass>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <mainClass>io.quarkus.runner.GeneratedMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
