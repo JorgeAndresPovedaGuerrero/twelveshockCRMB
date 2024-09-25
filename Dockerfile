@@ -5,7 +5,7 @@ FROM amazoncorretto:17-alpine-jdk
 WORKDIR /app
 
 # Copia el empaquetado de tu aplicación a la imagen
-COPY ./target/twelveshockcrm-1.0.0-SNAPSHOT.jar /app/twelveshock-crm-app.jar
+COPY ./target/twelveshockcrm-1.0.0-SNAPSHOT-runner.jar /app/twelveshock-crm-app.jar
 
 # Expone el puerto en el que la aplicación escuchará
 EXPOSE 8080 5005
