@@ -1,5 +1,12 @@
+# Excluye todo por defecto
 *
+
+# Excepciones: permite solo ciertos archivos y carpetas en el contexto de construcción
+
+# Incluir el JAR generado por Maven
+!target/*.jar
+
+# Incluir otros artefactos de Quarkus necesarios para la imagen nativa
 !target/*-runner
-!target/*-runner.jar
 !target/lib/*
 !target/quarkus-app/*

@@ -1,9 +1,16 @@
-##De que imagen partimos
+# Usa una imagen base de Amazon Corretto
 FROM amazoncorretto:17-alpine-jdk
 
-##propietario
-MAINTAINER TS
-##Copia el empaquetado a github
-COPY target/twelveshockcrm-1.0.0-SNAPSHOT.jar twelveshockcrm-app.jar
-##es la instrucción que se va a ejecutar primero
-ENTRYPOINT ["java","-jar","/twelveshockcrm-app.jar"]
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia el empaquetado de tu aplicación a la imagen
+COPY ./target/twelveshockcrm-1.0.0-SNAPSHOT.jar /app/twelveshock-crm-app.jar
+
+# Expone el puerto en el que la aplicación escuchará
+EXPOSE 8080 5005
+
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "twelveshock-crm-app.jar"]
+
+
