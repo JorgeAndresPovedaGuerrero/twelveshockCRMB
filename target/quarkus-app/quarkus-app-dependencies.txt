@@ -37,6 +37,7 @@ io.quarkus.vertx.utils:quarkus-vertx-utils::jar:3.12.3
 io.quarkus:quarkus-arc::jar:3.12.3
 io.quarkus:quarkus-bootstrap-runner::jar:3.12.3
 io.quarkus:quarkus-classloader-commons::jar:3.12.3
+io.quarkus:quarkus-config-yaml::jar:3.12.3
 io.quarkus:quarkus-core::jar:3.12.3
 io.quarkus:quarkus-credentials::jar:3.12.3
 io.quarkus:quarkus-datasource-common::jar:3.12.3
@@ -86,6 +87,7 @@ io.smallrye.common:smallrye-common-ref::jar:2.3.0
 io.smallrye.common:smallrye-common-vertx-context::jar:2.3.0
 io.smallrye.config:smallrye-config-common::jar:3.8.3
 io.smallrye.config:smallrye-config-core::jar:3.8.3
+io.smallrye.config:smallrye-config-source-yaml::jar:3.8.3
 io.smallrye.config:smallrye-config-validator::jar:3.8.3
 io.smallrye.config:smallrye-config::jar:3.8.3
 io.smallrye.reactive:mutiny-reactive-streams-operators::jar:2.6.0
