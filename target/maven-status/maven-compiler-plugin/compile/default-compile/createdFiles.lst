@@ -9,8 +9,10 @@ com\twelveshock\dao\entity\LogProduct.class
 com\twelveshock\dao\entity\Billing.class
 com\twelveshock\dao\entity\Shipping.class
 com\twelveshock\dao\impl\TransaccionDAO.class
+com\twelveshock\config\MongoConfig.class
 com\twelveshock\controller\LogProductResource.class
 com\twelveshock\dao\impl\OrdersDAO$1.class
+com\twelveshock\codec\LogProductCodecProvider.class
 com\twelveshock\dao\contract\ITransaccionDAO.class
 com\twelveshock\service\contract\ILogProductService.class
 com\twelveshock\dao\entity\OrderEntity.class
