@@ -6,11 +6,9 @@ import com.twelveshock.dao.entity.Billing;
 import com.twelveshock.dao.entity.OrderEntity;
 import com.twelveshock.dao.impl.OrdersDAO;
 import com.twelveshock.dto.OrderDTO;
-import com.twelveshock.facade.WoocommerceClient;
 import com.twelveshock.service.contract.IWooCommerceService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-
 
 import java.util.List;
 

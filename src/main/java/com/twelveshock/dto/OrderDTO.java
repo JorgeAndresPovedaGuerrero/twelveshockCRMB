@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twelveshock.dao.entity.Billing;
 import com.twelveshock.dao.entity.LineItem;
 import com.twelveshock.dao.entity.Shipping;
-import io.quarkus.mongodb.panache.common.MongoEntity;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.AllArgsConstructor;
 import lombok.Data;

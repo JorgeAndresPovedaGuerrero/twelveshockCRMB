@@ -50,7 +50,7 @@ public class WoocommerceResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createOrder(OrderDTO orderDTO) {
-        System.out.println("Received OrderDTO: " + orderDTO);  // Log for debugging
+        System.out.println("Received OrderDTO: " + orderDTO);
         OrderDTO createdOrder = wooCommerceService.createOrder(orderDTO);
         return Response.ok(createdOrder).build();
     }

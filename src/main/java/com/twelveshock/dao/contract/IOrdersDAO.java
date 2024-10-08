@@ -1,7 +1,6 @@
 package com.twelveshock.dao.contract;
 
 import com.twelveshock.dto.OrderDTO;
-import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 

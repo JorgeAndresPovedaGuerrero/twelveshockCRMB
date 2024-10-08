@@ -6,17 +6,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twelveshock.dao.contract.IOrdersDAO;
-import com.twelveshock.dao.entity.Billing;
+import com.twelveshock.dao.entity.*;
 import com.twelveshock.dto.OrderDTO;
-import com.twelveshock.dao.entity.OrderEntity;
 import com.twelveshock.facade.WoocommerceClient;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -133,10 +132,31 @@ public class OrdersDAO implements IOrdersDAO {
     }
 
     public OrderDTO updateOrder(long id, OrderDTO orderDTO) {
-        // Obtén la entidad existente
         OrderEntity existingOrder = OrderEntity.findById(id);
         if (existingOrder == null) {
             throw new RuntimeException("Order not found with id: " + id);
+        }
+
+        List<String> changes = new ArrayList<>();
+
+        // Verifica y registra cambios
+        if (!existingOrder.status.equals(orderDTO.getStatus())) {
+            changes.add("Se cambió de \"" + existingOrder.status + "\" a \"" + orderDTO.getStatus() + "\"");
+        }
+
+        // Verifica cambios en billing y shipping
+        checkBillingChanges(existingOrder.billing, orderDTO.getBilling(), changes);
+        checkShippingChanges(existingOrder.shipping, orderDTO.getShipping(), changes);
+
+        // Verifica cambios en otros campos del pedido
+        checkOrderChanges(existingOrder, orderDTO, changes);
+
+        // Verifica cambios en los productos
+        checkProductChanges(existingOrder.lineItems, orderDTO.getLine_items(), id);
+
+        // Si hay cambios acumulados, regístralos
+        if (!changes.isEmpty()) {
+            logChange(id, "Actualización del pedido", changes);
         }
 
         // Actualiza los campos
@@ -206,6 +226,136 @@ public class OrdersDAO implements IOrdersDAO {
         }
     }
 
+    private void checkBillingChanges(Billing existingBilling, Billing newBilling, List<String> changes) {
+        // Compara cada campo de Billing y agrega los cambios a la lista
+        if (!existingBilling.getFirstName().equals(newBilling.getFirstName())) {
+            changes.add("Nombre de facturación: " + existingBilling.getFirstName() + " -> " + newBilling.getFirstName());
+        }
+        if (!existingBilling.getAddress1().equals(newBilling.getAddress1())) {
+            changes.add("Dirección de facturación: " + existingBilling.getAddress1() + " -> " + newBilling.getAddress1());
+        }
+        if (!existingBilling.getAddress2().equals(newBilling.getAddress2())) {
+            changes.add("Complemento de Dirección de facturación: " + existingBilling.getAddress2() + " -> " + newBilling.getAddress2());
+        }
+        if (!existingBilling.getCity().equals(newBilling.getCity())) {
+            changes.add("Ciudad de facturación: " + existingBilling.getCity() + " -> " + newBilling.getCity());
+        }
+        if (!existingBilling.getIdentification().equals(newBilling.getIdentification())) {
+            changes.add("Ciudad de facturación: " + existingBilling.getIdentification() + " -> " + newBilling.getIdentification());
+        }
+        if (!existingBilling.getCountry().equals(newBilling.getCountry())) {
+            changes.add("País de facturación: " + existingBilling.getCountry() + " -> " + newBilling.getCountry());
+        }
+        if (!existingBilling.getEmail().equals(newBilling.getEmail())) {
+            changes.add("Email de facturación: " + existingBilling.getEmail() + " -> " + newBilling.getEmail());
+        }
+        if (!existingBilling.getLastName().equals(newBilling.getLastName())) {
+            changes.add("Apellido de facturación: " + existingBilling.getLastName() + " -> " + newBilling.getLastName());
+        }
+        if (!existingBilling.getPhone().equals(newBilling.getPhone())) {
+            changes.add("Teléfono de facturación: " + existingBilling.getPhone() + " -> " + newBilling.getPhone());
+        }
+        if (!existingBilling.getPhone2().equals(newBilling.getPhone2())) {
+            changes.add("Teléfono 2 de facturación: " + existingBilling.getPhone2() + " -> " + newBilling.getPhone2());
+        }
+        if (!existingBilling.getPostcode().equals(newBilling.getPostcode())) {
+            changes.add("PostCode de facturación: " + existingBilling.getPostcode() + " -> " + newBilling.getPostcode());
+        }
+        if (!existingBilling.getState().equals(newBilling.getState())) {
+            changes.add("Departamento de facturación: " + existingBilling.getState() + " -> " + newBilling.getState());
+        }
 
+    }
+
+    private void checkShippingChanges(Shipping existingShipping, Shipping newShipping, List<String> changes) {
+        // Compara cada campo de Shipping y agrega los cambios a la lista
+        if (!existingShipping.getAddress1().equals(newShipping.getAddress1())) {
+            changes.add("Dirección de envío: " + existingShipping.getAddress1() + " -> " + newShipping.getAddress1());
+        }
+        if (!existingShipping.getAddress2().equals(newShipping.getAddress2())) {
+            changes.add("Complemento de dirección de envío: " + existingShipping.getAddress2() + " -> " + newShipping.getAddress2());
+        }
+        if (!existingShipping.getFirstName().equals(newShipping.getFirstName())) {
+            changes.add("Nombre de envío: " + existingShipping.getFirstName() + " -> " + newShipping.getFirstName());
+        }
+        if (!existingShipping.getLastName().equals(newShipping.getLastName())) {
+            changes.add("Apellido de envío: " + existingShipping.getLastName() + " -> " + newShipping.getLastName());
+        }
+        if (!existingShipping.getPostcode().equals(newShipping.getPostcode())) {
+            changes.add("PostCode de envío: " + existingShipping.getPostcode() + " -> " + newShipping.getPostcode());
+        }
+        if (!existingShipping.getState().equals(newShipping.getState())) {
+            changes.add("Departamento de envío: " + existingShipping.getState() + " -> " + newShipping.getState());
+        }
+        if (!existingShipping.getCity().equals(newShipping.getCity())) {
+            changes.add("Ciudad de envío: " + existingShipping.getCity() + " -> " + newShipping.getCity());
+        }
+        if (!existingShipping.getCountry().equals(newShipping.getCountry())) {
+            changes.add("País de envío: " + existingShipping.getCountry() + " -> " + newShipping.getCountry());
+        }
+        if (!existingShipping.getPriceShipping().equals(newShipping.getPriceShipping())) {
+            changes.add("Valor del envío: " + existingShipping.getPriceShipping() + " -> " + newShipping.getPriceShipping());
+        }
+    }
+
+    private void checkOrderChanges(OrderEntity existingOrder, OrderDTO newOrder, List<String> changes) {
+        // Compara campos del pedido que no sean billing, shipping o productos
+        if (!existingOrder.total.equals(newOrder.getTotal())) {
+            changes.add("Total: " + existingOrder.total + " -> " + newOrder.getTotal());
+        }
+        if (!existingOrder.totalTax.equals(newOrder.getTotal_tax())) {
+            changes.add("Total tax: " + existingOrder.totalTax + " -> " + newOrder.getTotal_tax());
+        }
+        if (!existingOrder.currency.equals(newOrder.getCurrency())) {
+            changes.add("Moneda: " + existingOrder.currency + " -> " + newOrder.getCurrency());
+        }
+    }
+
+    private void checkProductChanges(List<LineItem> existingItems, List<LineItem> newItems, long orderId) {
+        List<String> addedProducts = new ArrayList<>();
+        List<String> removedProducts = new ArrayList<>();
+
+        // Verifica los productos agregados
+        for (LineItem newItem : newItems) {
+            boolean exists = existingItems.stream()
+                    .anyMatch(item -> item.getProductId().equals(newItem.getProductId())); // Usar productId aquí
+            if (!exists) {
+                addedProducts.add("Se agregó el producto: " + newItem.getName());
+            }
+        }
+
+        // Verifica los productos eliminados
+        for (LineItem existingItem : existingItems) {
+            boolean exists = newItems.stream()
+                    .anyMatch(item -> item.getProductId().equals(existingItem.getProductId())); // Usar productId aquí
+            if (!exists) {
+                removedProducts.add("Se eliminó el producto: " + existingItem.getName());
+            }
+        }
+
+        // Log de cambios
+        if (!addedProducts.isEmpty()) {
+            logChange(orderId, "Actualización en productos del pedido", addedProducts);
+        }
+        if (!removedProducts.isEmpty()) {
+            logChange(orderId, "Actualización en productos del pedido", removedProducts);
+        }
+    }
+
+    private void logChange(long orderId, String title, List<String> changes) {
+        LogProduct changeLog = new LogProduct();
+        changeLog.setTitle(title != null ? title : "Actualización del pedido");
+        changeLog.setChanges(changes);
+        changeLog.setChangeDate(LocalDateTime.now()); // Aseguramos que siempre haya una fecha
+        changeLog.setOrderId(orderId);
+        changeLog.persist();
+    }
+
+    // Sobrecarga para manejar un solo cambio como String
+    private void logChange(long orderId, String title, String change) {
+        List<String> changes = new ArrayList<>();
+        changes.add(change);
+        logChange(orderId, title, changes);
+    }
 }
 
