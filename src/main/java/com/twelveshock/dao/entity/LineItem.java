@@ -15,19 +15,14 @@ import lombok.NoArgsConstructor;
 public class LineItem {
     @JsonProperty("id")
     public Long id;
-
     @JsonProperty("name")
     public String name;
-
     @JsonProperty("product_id")
     public Integer productId;
-
     @JsonProperty("quantity")
     public Integer quantity;
-
     @JsonProperty("subtotal")
     public String subtotal;
-
     @JsonProperty("total")
     public String total;
 }
