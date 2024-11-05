@@ -241,7 +241,7 @@ public class OrdersDAO implements IOrdersDAO {
             changes.add("Ciudad de facturación: " + existingBilling.getCity() + " -> " + newBilling.getCity());
         }
         if (!existingBilling.getIdentification().equals(newBilling.getIdentification())) {
-            changes.add("Ciudad de facturación: " + existingBilling.getIdentification() + " -> " + newBilling.getIdentification());
+            changes.add("Cédula de facturación: " + existingBilling.getIdentification() + " -> " + newBilling.getIdentification());
         }
         if (!existingBilling.getCountry().equals(newBilling.getCountry())) {
             changes.add("País de facturación: " + existingBilling.getCountry() + " -> " + newBilling.getCountry());
@@ -314,20 +314,34 @@ public class OrdersDAO implements IOrdersDAO {
     private void checkProductChanges(List<LineItem> existingItems, List<LineItem> newItems, long orderId) {
         List<String> addedProducts = new ArrayList<>();
         List<String> removedProducts = new ArrayList<>();
+        List<String> updatedProducts = new ArrayList<>();
 
         // Verifica los productos agregados
         for (LineItem newItem : newItems) {
             boolean exists = existingItems.stream()
-                    .anyMatch(item -> item.getProductId().equals(newItem.getProductId())); // Usar productId aquí
+                    .anyMatch(item -> item.getProductId().equals(newItem.getProductId()));
             if (!exists) {
                 addedProducts.add("Se agregó el producto: " + newItem.getName());
+            } else {
+                // Verifica si el producto ha cambiado (cantidad, subtotal, total, etc.)
+                LineItem existingItem = existingItems.stream()
+                        .filter(item -> item.getProductId().equals(newItem.getProductId()))
+                        .findFirst()
+                        .orElse(null);
+
+                if (existingItem != null) {
+                    List<String> changes = getChanges(existingItem, newItem);
+                    if (!changes.isEmpty()) {
+                        updatedProducts.add("Se actualizó el producto: " + newItem.getName() + " - Cambios: " + String.join(", ", changes));
+                    }
+                }
             }
         }
 
         // Verifica los productos eliminados
         for (LineItem existingItem : existingItems) {
             boolean exists = newItems.stream()
-                    .anyMatch(item -> item.getProductId().equals(existingItem.getProductId())); // Usar productId aquí
+                    .anyMatch(item -> item.getProductId().equals(existingItem.getProductId()));
             if (!exists) {
                 removedProducts.add("Se eliminó el producto: " + existingItem.getName());
             }
@@ -335,11 +349,34 @@ public class OrdersDAO implements IOrdersDAO {
 
         // Log de cambios
         if (!addedProducts.isEmpty()) {
-            logChange(orderId, "Actualización en productos del pedido", addedProducts);
+            logChange(orderId, "Productos agregados", addedProducts);
         }
         if (!removedProducts.isEmpty()) {
-            logChange(orderId, "Actualización en productos del pedido", removedProducts);
+            logChange(orderId, "Productos eliminados", removedProducts);
         }
+        if (!updatedProducts.isEmpty()) {
+            logChange(orderId, "Productos actualizados", updatedProducts);
+        }
+    }
+
+    private List<String> getChanges(LineItem existingItem, LineItem newItem) {
+        List<String> changes = new ArrayList<>();
+
+        // Compara los campos y agrega el cambio correspondiente
+        if (!existingItem.getQuantity().equals(newItem.getQuantity())) {
+            changes.add("Cantidad: de " + existingItem.getQuantity() + " a " + newItem.getQuantity());
+        }
+        if (!existingItem.getSubtotal().equals(newItem.getSubtotal())) {
+            changes.add("Subtotal: de " + existingItem.getSubtotal() + " a " + newItem.getSubtotal());
+        }
+        if (!existingItem.getTotal().equals(newItem.getTotal())) {
+            changes.add("Total: de " + existingItem.getTotal() + " a " + newItem.getTotal());
+        }
+        if (!existingItem.getCodigoProveedor().equals(newItem.getCodigoProveedor())) {
+            changes.add("Código Proveedor: de " + existingItem.getCodigoProveedor() + " a " + newItem.getCodigoProveedor());
+        }
+
+        return changes; // Retorna la lista de cambios
     }
 
     private void logChange(long orderId, String title, List<String> changes) {

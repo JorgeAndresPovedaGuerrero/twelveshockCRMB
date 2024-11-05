@@ -6,14 +6,20 @@ com\twelveshock\dao\entity\LineItem.class
 com\twelveshock\dto\OrderDTO.class
 com\twelveshock\config\CodecConfiguration.class
 com\twelveshock\service\impl\WooCommerceServiceImpl.class
+com\twelveshock\service\impl\ProveedorService.class
 com\twelveshock\dao\entity\LogProduct.class
+com\twelveshock\controller\ProveedorController.class
+com\twelveshock\dao\entity\Proveedor.class
 com\twelveshock\dao\entity\Billing.class
 com\twelveshock\dao\entity\Gasto.class
+com\twelveshock\dao\impl\ProveedoresDAO.class
 com\twelveshock\dao\entity\Shipping.class
 com\twelveshock\dao\impl\TransaccionDAO.class
 com\twelveshock\service\contract\IGastoService.class
 com\twelveshock\dto\GastoDTO.class
 com\twelveshock\config\MongoConfig.class
+com\twelveshock\service\contract\IProveedorService.class
+com\twelveshock\repository\ProveedorRepository.class
 com\twelveshock\controller\LogProductResource.class
 com\twelveshock\dao\impl\OrdersDAO$1.class
 com\twelveshock\repository\GastoRepository.class
@@ -27,5 +33,6 @@ com\twelveshock\service\contract\IWooCommerceService.class
 com\twelveshock\controller\GastoController.class
 com\twelveshock\dao\impl\OrdersDAO.class
 com\twelveshock\service\impl\LogProductServiceImpl.class
+com\twelveshock\dto\ProveedorDTO.class
 com\twelveshock\controller\WoocommerceResource.class
 com\twelveshock\dao\contract\IOrdersDAO.class

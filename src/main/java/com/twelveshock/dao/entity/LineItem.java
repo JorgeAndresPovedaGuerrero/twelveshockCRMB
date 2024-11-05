@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LineItem {
-    @JsonProperty("id")
-    public Long id;
     @JsonProperty("name")
     public String name;
     @JsonProperty("product_id")
@@ -25,4 +23,6 @@ public class LineItem {
     public String subtotal;
     @JsonProperty("total")
     public String total;
+    @JsonProperty("codigoProveedor")
+    public String codigoProveedor;
 }
