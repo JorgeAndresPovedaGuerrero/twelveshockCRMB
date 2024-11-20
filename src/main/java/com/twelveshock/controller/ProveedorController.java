@@ -5,6 +5,7 @@ import com.twelveshock.dto.GastoDTO;
 import com.twelveshock.dto.ProveedorDTO;
 import com.twelveshock.repository.ProveedorRepository;
 import com.twelveshock.service.impl.ProveedorService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -13,6 +14,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/proveedor")
+@RolesAllowed("Admin")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProveedorController {

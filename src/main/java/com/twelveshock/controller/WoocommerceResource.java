@@ -7,6 +7,7 @@ import com.twelveshock.dto.OrderDTO;
 import com.twelveshock.facade.WoocommerceClient;
 import com.twelveshock.service.impl.WooCommerceServiceImpl;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,6 +19,7 @@ import java.util.List;
 @Path("/data")
 @RegisterForReflection(targets = {OrderDTO.class, LineItem.class, Billing.class, OrderEntity.class, OrderEntity.class,
                     })
+@ApplicationScoped
 public class WoocommerceResource {
 
     @Inject
