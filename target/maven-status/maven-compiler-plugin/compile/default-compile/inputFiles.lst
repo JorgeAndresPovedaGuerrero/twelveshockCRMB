@@ -41,5 +41,7 @@ D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\c
 D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\auth\UserCredentials.java
 D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\auth\UserRepository.java
 D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\auth\UserService.java
+D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\health\HealthCheckEndpoint.java
 D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\interceptors\BasicAuthFilter.java
 D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\mappers\WooCommerceMapper.java
+D:\Proyecto\TwelveShock\Back-end-para despliegue\twelveshockCRMB\src\main\java\com\twelveshock\utils\Schedulers\KeepAliveScheduler.java
