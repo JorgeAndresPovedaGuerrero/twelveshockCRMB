@@ -1,4 +1,5 @@
 com\twelveshock\service\impl\GastoService.class
+com\twelveshock\utils\health\HealthCheckEndpoint.class
 com\twelveshock\codec\LogProductCodec.class
 com\twelveshock\utils\interceptors\BasicAuthFilter.class
 com\twelveshock\utils\auth\UserCredentials.class
@@ -42,5 +43,6 @@ com\twelveshock\service\contract\ILogProductService.class
 com\twelveshock\service\contract\IWooCommerceService.class
 com\twelveshock\controller\GastoController.class
 com\twelveshock\utils\auth\ErrorResponse.class
+com\twelveshock\utils\Schedulers\KeepAliveScheduler.class
 com\twelveshock\dto\ProveedorDTO.class
 com\twelveshock\controller\WoocommerceResource.class
