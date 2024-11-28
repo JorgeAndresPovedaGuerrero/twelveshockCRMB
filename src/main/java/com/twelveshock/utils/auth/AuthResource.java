@@ -74,7 +74,7 @@ public class AuthResource {
                     .upn(user.getUsername())
                     .groups(new HashSet<>(user.getRoles()))
                     .claim(Claims.birthdate.name(), user.getBirthdate())
-                    .expiresAt(Instant.now().plusSeconds(3600))
+                    .expiresAt(Instant.now().plusSeconds(3600*4))
                     .sign();
 
             return Response.ok(new TokenResponse(token)).build();
