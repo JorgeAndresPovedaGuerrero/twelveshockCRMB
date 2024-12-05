@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Base64;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +27,6 @@ public class LineItem {
     public String total;
     @JsonProperty("codigoProveedor")
     public String codigoProveedor;
+    @JsonProperty("imagen")
+    public String imagen;
 }

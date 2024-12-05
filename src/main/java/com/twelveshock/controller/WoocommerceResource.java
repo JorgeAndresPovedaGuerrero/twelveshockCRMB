@@ -7,6 +7,7 @@ import com.twelveshock.dto.OrderDTO;
 import com.twelveshock.facade.WoocommerceClient;
 import com.twelveshock.service.impl.WooCommerceServiceImpl;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -17,6 +18,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import java.util.List;
 
 @Path("/data")
+@RolesAllowed({"Admin", "User"})
 @RegisterForReflection(targets = {OrderDTO.class, LineItem.class, Billing.class, OrderEntity.class, OrderEntity.class,
                     })
 @ApplicationScoped
