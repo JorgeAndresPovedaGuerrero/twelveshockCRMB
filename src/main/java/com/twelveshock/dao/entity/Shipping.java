@@ -40,7 +40,7 @@ public class Shipping {
     public String country;
 
     @JsonProperty("price_shipping")
-    public Long priceShipping;
+    public Long priceShipping = 0L;
 
     @JsonProperty("paymentType")
     public String paymentType;
