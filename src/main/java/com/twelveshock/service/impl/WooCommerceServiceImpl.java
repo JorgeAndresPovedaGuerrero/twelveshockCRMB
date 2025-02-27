@@ -23,8 +23,8 @@ public class WooCommerceServiceImpl implements IWooCommerceService {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO) {
-        return ordersDAO.createOrder(orderDTO);
+    public OrderDTO createOrder(OrderDTO orderDTO, boolean isManual) {
+        return ordersDAO.createOrder(orderDTO, isManual);
     }
 
     @Override

@@ -53,9 +53,9 @@ public class WoocommerceResource {
     @Path("/orders")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createOrder(OrderDTO orderDTO) {
+    public Response createOrder(OrderDTO orderDTO, @QueryParam("isManual") boolean isManual) {
         System.out.println("Received OrderDTO: " + orderDTO);
-        OrderDTO createdOrder = wooCommerceService.createOrder(orderDTO);
+        OrderDTO createdOrder = wooCommerceService.createOrder(orderDTO, isManual);
         return Response.ok(createdOrder).build();
     }
 

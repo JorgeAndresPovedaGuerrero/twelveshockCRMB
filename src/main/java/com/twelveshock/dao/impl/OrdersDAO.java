@@ -121,12 +121,16 @@ public class OrdersDAO implements IOrdersDAO {
         }
     }
 
-    public OrderDTO createOrder(OrderDTO orderDTO) {
+    public OrderDTO createOrder(OrderDTO orderDTO, boolean isManual) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         orderDTO.setDate_created(LocalDateTime.now());
 
         OrderEntity orderEntity = objectMapper.convertValue(orderDTO, OrderEntity.class);
+        // Si la orden es manual, sumamos 100000000 al ID
+        if (isManual) {
+            orderEntity.setId(orderEntity.getId() + 100000000);
+        }
         orderEntity.persist();
         return objectMapper.convertValue(orderEntity, OrderDTO.class);
     }
