@@ -10,6 +10,9 @@ target/
 *.jar
 *.tar
 
+echo "/target/" >> .gitignore
+echo "*.tar" >> .gitignore
+
 target/twelveshockcrm-1.0.0-SNAPSHOT-runner.jar
 twelveshockcrm.tar
 
