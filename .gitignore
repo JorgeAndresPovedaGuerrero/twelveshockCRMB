@@ -10,6 +10,9 @@ target/
 *.jar
 *.tar
 
+target/twelveshockcrm-1.0.0-SNAPSHOT-runner.jar
+twelveshockcrm.tar
+
 # Eclipse
 .project
 .classpath
