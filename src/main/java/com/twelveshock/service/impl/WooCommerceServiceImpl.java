@@ -17,6 +17,9 @@ public class WooCommerceServiceImpl implements IWooCommerceService {
     @Inject
     OrdersDAO ordersDAO;
 
+    @Inject
+    ContraentregaService contraentregaService;
+
     @Override
     public List<OrderDTO> getOrders(String status, String startDate, String endDate) {
         return ordersDAO.getOrders(status, startDate, endDate);
@@ -24,7 +27,11 @@ public class WooCommerceServiceImpl implements IWooCommerceService {
 
     @Override
     public OrderDTO createOrder(OrderDTO orderDTO, boolean isManual) {
-        return ordersDAO.createOrder(orderDTO, isManual);
+        // Crear el pedido
+        OrderDTO createdOrder = ordersDAO.createOrder(orderDTO, isManual);
+        // Procesar contraentrega si aplica
+        contraentregaService.procesarContraentrega(createdOrder);
+        return createdOrder;
     }
 
     @Override
